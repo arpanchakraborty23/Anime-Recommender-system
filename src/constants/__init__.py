@@ -17,3 +17,8 @@ Input_Data_File_Name :str = "anime-dataset-2023.csv"
 Output_Data_File_Name: str = "process_data.csv"
 
 required_cols : list[str] =["Name","Score","Genres","Synopsis","Episodes","Aired"]
+
+## Vectore Database Config
+Database_Dir: str= "db"
+Embedding_Model: str ="models/embedding-001"
+

@@ -1,6 +1,4 @@
-from src.components.data_ingestion import DataIngestion
-from src.config.config import DataIngestionConfig
+from src.pipeline.train_pipeline import TrainPipeline
 
-config =DataIngestionConfig()
-obj = DataIngestion(config=config)
-obj.load_and_process()
+obj = TrainPipeline()
+obj.run_pipeline()
