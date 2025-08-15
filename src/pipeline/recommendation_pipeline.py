@@ -15,7 +15,7 @@ class AnimeRecommender:
         embedding =HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
         # Google Gemini LLM
         self.llm = ChatGoogleGenerativeAI(
-            model="gemini-pro",
+            model="gemini-2.5-flash",
             google_api_key=os.getenv("GIMINI_API_KEY"),
             temperature=0
         )

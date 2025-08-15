@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rag-app
+  labels:
+    app: rag
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rag
+  template:
+    metadata:
+      labels:
+        app: rag
+    spec:
+      containers:
+      - name: rag-container
+        image: rag-app:latest  # Use local image
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 8000
+        envFrom:
+          - secretRef:
+              name: rag-secrets 
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rag-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: rag
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000

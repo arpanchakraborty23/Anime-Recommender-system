@@ -14,7 +14,7 @@ def get_requirements(filepth:str)->[List]:
     return requirements
 
 setup(
-    name='Voice-Agent-Project',
+    name='RAG-llmpos-Project',
     version='0.1.0',
     author='Arpanchakraborty23',
     author_email='arpanchakaborty500@gmail.com',

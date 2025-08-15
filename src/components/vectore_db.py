@@ -33,7 +33,7 @@ class VectorStoreBuilder:
 
             data = loader.load()
 
-            splitter = CharacterTextSplitter(chunk_size=1000,chunk_overlap=0)
+            splitter = CharacterTextSplitter(chunk_size=1000,chunk_overlap=50)
             texts = splitter.split_documents(data)
 
             os.makedirs(self.config.database_store_path,exist_ok=True)
@@ -44,7 +44,7 @@ class VectorStoreBuilder:
                 persist_directory=self.config.database_store_path
                 )
             logging.info("vectore store completed")
-            db.persist()
+      
 
             return VectoreDBArtifacts(self.config.database_store_path)
         

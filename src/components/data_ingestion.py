@@ -42,7 +42,7 @@ class DataIngestion:
             # Ensure the folder exists
             self.config.output_file_path.parent.mkdir(parents=True, exist_ok=True)
             # Save output (entire DataFrame)
-            df['combine_info'].to_csv(self.config.output_file_path, index=False)
+            df['combine_info'][:500].to_csv(self.config.output_file_path, index=False)
             logging.info(f"Processed data saved at: {self.config.output_file_path}")
 
             return DataIngestionArtifacts(self.config.output_file_path)
