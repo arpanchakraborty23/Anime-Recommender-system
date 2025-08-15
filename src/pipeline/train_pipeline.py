@@ -10,10 +10,11 @@ class TrainPipeline:
         data_ingestion_config =DataIngestionConfig()
         data_ingestion = DataIngestion(config=data_ingestion_config)
         data_ingestion_artifact=data_ingestion.load_and_process()
+        print(data_ingestion_artifact)
 
         vector_db_config = VectoreDBConfig()
         vector_db = VectorStoreBuilder(
-            csv_path=data_ingestion_artifact,
+            csv_path=data_ingestion_artifact.output_file_path,
             config=vector_db_config
         )
 

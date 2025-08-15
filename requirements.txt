@@ -9,5 +9,6 @@ ipykernel
 python-dotenv
 sentence-transformers
 torch
+flask
 
 - e.
