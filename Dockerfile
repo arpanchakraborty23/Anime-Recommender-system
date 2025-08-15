@@ -8,31 +8,28 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 # Set working directory
 WORKDIR /app
 
-# Install only essential packages for build, then remove later
-RUN apk add --no-cache --virtual .build-deps \
-        build-base \
-        linux-headers \
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        build-essential \
         gcc \
         g++ \
         curl \
-    && apk add --no-cache \
         libffi-dev \
-        musl-dev \
-        bash
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first for better caching
+# Copy requirements first for caching
 COPY requirements.txt .
 
-# Install dependencies
+# Install pip packages (with torch from official index if needed)
 RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt \
-    && apk del .build-deps  # remove build deps to shrink image
+    && pip install --no-cache-dir torch==2.2.2+cpu -f https://download.pytorch.org/whl/torch_stable.html \
+    && pip install --no-cache-dir -r requirements.txt
 
-# Copy rest of the app (including app.py)
+# Copy the rest of your application
 COPY . .
 
-# Expose app port
+# Expose port
 EXPOSE 8000
 
 # Run the app
-CMD ["python", "app.py","--server.address=0.0.0.0","--server.port=8000"]
+CMD ["python", "app.py", "--server.address=0.0.0.0", "--server.port=8000"]
